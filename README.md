@@ -6,6 +6,6 @@ As of now, we have created a web-based front-end interface with the use of HTML/
 
 ## Sample Output
 
-![Gun Detection](AI MODELS/result/handgun_detection.png)
-![model result](AI MODELS/result/model_result.png)
-![sql](AI MODELS/result/sql.jpg)
+![Gun Detection](AIMODELS/result/handgun_detection.png)
+![model result](AIMODELS/result/model_result.png)
+![sql](AIMODELS/result/sql.jpg)

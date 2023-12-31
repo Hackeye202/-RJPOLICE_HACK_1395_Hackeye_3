@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dashboard.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+<div class="header">
+    <button class="toggle-button" onclick="toggleSidebar()">☰</button>
+    <h1>Dashboard</h1>
+</div>
+
+<div id="sidebar">
+    <a href="dashboard.html" onclick="toggleSidebar()">Home</a>
+    <a href="livefootage.html" onclick="toggleSidebar()">Live CCTV Footage</a>
+    <a href="crime.html" onclick="toggleSidebar()">Crime</a>
+    <a href="camera.html" onclick="toggleSidebar()">Cameras</a>
+    <a href="crimefootage.html" onclick="toggleSidebar()">Crime Footage</a>
+    <a href="alertmessage.html" onclick="toggleSidebar()">Alert Message</a>
+    <a href="emergencynumbers.html" onclick="toggleSidebar()">Emergency Numbers</a>
+</div>
+
+
+<div class="content">
+  <p>Alert Message here</p>
+</div>
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const header = document.querySelector('.header');
+
+        if (sidebar.style.width === '250px') {
+            sidebar.style.width = '0';
+            header.style.marginLeft = '0';
+        } else {
+            sidebar.style.width = '250px';
+            header.style.marginLeft = '250px';
+        }
+    }
+</script>
+
+</body>
+</html>

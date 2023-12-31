@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="camera.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+<div class="header">
+    <button class="toggle-button" onclick="toggleSidebar()">☰</button>
+    <h1>Dashboard</h1>
+</div>
+
+<div id="sidebar">
+    <a href="dashboard.html" onclick="toggleSidebar()">Home</a>
+    <a href="livefootage.html" onclick="toggleSidebar()">Live CCTV Footage</a>
+    <a href="crime.html" onclick="toggleSidebar()">Crime</a>
+    <a href="camera.html" onclick="toggleSidebar()">Cameras</a>
+    <a href="crimefootage.html" onclick="toggleSidebar()">Crime Footage</a>
+    <a href="alertmessage.html" onclick="toggleSidebar()">Alert Message</a>
+    <a href="emergencynumbers.html" onclick="toggleSidebar()">Emergency Numbers</a>
+</div>
+
+
+<div class="content">
+    <div>
+        <h2>Cameras</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>NO</th>
+                    <th>Location</th>
+                    <th>Model</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>LockupAHall</td>
+                    <td>RCMR1718</td>
+                    <td id="Status">Active</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>LockupBHall</td>
+                    <td>RCMR1718</td>
+                    <td id="Status">Active</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>DiningHall</td>
+                    <td>RCMR1718</td>
+                    <td id="Status">Active</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Workshop</td>
+                    <td>RCMR1718</td>
+                    <td id="Status">Active</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>LockupRoom</td>
+                    <td>RCMR1718</td>
+                    <td id="Status">Active</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>PrisonEast</td>
+                    <td>RCMR1718</td>
+                    <td id="Status">Active</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Storage</td>
+                    <td>RCMR1718</td>
+                    <td id="Status">Active</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Playground</td>
+                    <td>RCMR1718</td>
+                    <td id="Status">Active</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const header = document.querySelector('.header');
+
+        if (sidebar.style.width === '250px') {
+            sidebar.style.width = '0';
+            header.style.marginLeft = '0';
+        } else {
+            sidebar.style.width = '250px';
+            header.style.marginLeft = '250px';
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div id="header">
+        <img src="images/RPLogo.png" alt="Rajasthan Police" height=60>
+        <h2>AI-Based Surveillance Monitoring</h2>
+    </div>
+        <div id="login-box">
+        <h2>Login</h2>
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" onclick="login()">Login</button>
+    </div>
+    <script>
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            if (username === "test" && password === "123") {
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Invalid credentials. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -12,6 +12,10 @@
 <div class="header">
     <button class="toggle-button" onclick="toggleSidebar()">☰</button>
     <h1>Dashboard</h1>
+    <div class="img-container">
+        <img src="images\RPLogo.png" alt="logo" class="logo">
+        <img src="images\lion.png" alt="logo" class="logo">
+        </div>
 </div>
 
 <div id="sidebar">
@@ -26,7 +30,8 @@
 
 
 <div class="content">
-  <p>Power BI Content here</p>
+  <button type="submit" id="Refresh" onclick="login()">Refresh</button>
+  <iframe width="1200" height="768" src="http://localhost/Reports/powerbi/rajdashboardtest1?rs:embed=true" frameborder="0" style="border:0" allowfullscreen></iframe>
 </div>
 
 <script>

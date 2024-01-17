@@ -1,0 +1,135 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#search_date {
+    padding: 8px;
+    margin-right: 10px;
+}
+
+.search-button, .reset-button {
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+}
+
+.reset-button {
+    background-color: #e74c3c;
+}
+
+.video-card {
+    width: 50%;
+    box-sizing: border-box;
+    margin: 10px 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s;
+    display: flex;
+}
+
+.video-thumbnail {
+    width: 30%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-details {
+    width: 70%;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.video-card:hover {
+    transform: scale(1.05);
+}
+
+.play-button {
+    top: 50%;
+    left: 50%;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.video-player {
+    display: none;
+    width: 100%;
+    height: 300px;
+    background-color: #333;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.exit-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.content {
+        display: flex;
+    }
+
+.video-container {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.large-video-player {
+    width: 100%;
+    height: 400px;
+    background-color: #333;
+    color: #fff;
+    position: relative;
+    display: none;
+}
+
+.exit-button-large {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.search-container {
+        margin-bottom: 20px;
+}
+
+#no-video{
+    color:#ff0000;
+    font-weight: bold;
+    padding: 50px;
+    margin: 10px;
+}

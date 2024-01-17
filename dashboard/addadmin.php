@@ -15,23 +15,16 @@ $password = "1234";
 $dbname = "hackeye";
 
 try {
-    // Create a PDO connection
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    // Set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Check if the form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Retrieve user input
         $username = $_POST['username'];
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
-        // Insert user details into the database
         $sql = "INSERT INTO admininfo (username, password) VALUES (:username, :password)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':password', $password);
-
         $stmt->execute();
 
         echo "Admin '$username' registered successfully.<br>";

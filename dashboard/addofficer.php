@@ -8,13 +8,11 @@ $dbname = "hackeye";
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
 
-// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $userDetails = $_POST['user_details'];
@@ -24,11 +22,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $password = password_hash($user['password'], PASSWORD_DEFAULT);
 
             if (isset($_POST['remove_user'][$index]) && $_POST['remove_user'][$index] == 'on') {
-                // Skip the user if the remove button is clicked
                 continue;
             }
 
-            // Insert user details into the database using PDO prepared statements
             $stmt = $conn->prepare("INSERT INTO officerinfo (username, password) VALUES (:username, :password)");
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':password', $password);

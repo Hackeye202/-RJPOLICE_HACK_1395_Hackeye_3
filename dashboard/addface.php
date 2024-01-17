@@ -15,16 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $subfolderName = $names[$index];
             $subfolderPath = $uploadDir . $subfolderName . '/';
 
-            // Create subfolder if it doesn't exist
             if (!file_exists($subfolderPath)) {
                 mkdir($subfolderPath, 0777, true);
             }
 
-            // Use a unique filename within the subfolder
             $imageFileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
             $uniqueFileName = $subfolderPath . $subfolderName . '_' . uniqid() . '.' . $imageFileType;
 
-            // Check if the file already exists, and generate a new unique filename if needed
             while (file_exists($uniqueFileName)) {
                 $uniqueFileName = $subfolderPath . $subfolderName . '_' . uniqid() . '.' . $imageFileType;
             }
@@ -40,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // Display upload status
         foreach ($uploadStatus as $status) {
             echo $status . '<br>';
         }

@@ -7,24 +7,44 @@ $password = '1234';
 
 try {
     $pdo = new PDO($dsn, $username, $password);
-    // Set PDO to throw exceptions on error
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo 'Connection failed: ' . $e->getMessage();
     exit();
 }
 
-function getCrimeType($dateTime) {
+function getCrimeType($date, $time) {
     global $pdo;
-
-    $query = "SELECT type_of_crime FROM crime WHERE date_time = :dateTime";
+    $query = "SELECT type_of_crime FROM crime WHERE date = :date AND time = :time";
+    
     $statement = $pdo->prepare($query);
-    $statement->bindParam(':dateTime', $dateTime);
+    $statement->bindParam(':date', $date);
+    $statement->bindParam(':time', $time);
     $statement->execute();
 
     $result = $statement->fetch(PDO::FETCH_ASSOC);
 
-    return $result ? $result['crime_type'] : 'Unknown';
+    return $result ? $result['type_of_crime'] : 'Unknown';
+}
+
+function getVideoFiles($selectedDate = null) {
+    $videoDir = 'videos/crimes/';
+    $videoFiles = glob($videoDir . '*.mp4');
+
+    if ($selectedDate) {
+        $filteredFiles = [];
+        foreach ($videoFiles as $videoFile) {
+            $videoName = pathinfo($videoFile, PATHINFO_FILENAME);
+            $dateTime = DateTime::createFromFormat('Y-m-d_H-i-s', $videoName);
+
+            if ($dateTime && $dateTime->format('Y-m-d') == $selectedDate) {
+                $filteredFiles[] = $videoFile;
+            }
+        }
+        return $filteredFiles;
+    }
+
+    return $videoFiles;
 }
 
 function generateVideoDataArray($videoFiles) {
@@ -37,8 +57,8 @@ function generateVideoDataArray($videoFiles) {
 
         if ($dateTime) {
             $videoDate = $dateTime->format('Y-m-d');
-            $videoTime = $dateTime->format('h:i A');
-            $crimeType = getCrimeType($dateTime->format('Y-m-d H:i:s'));
+            $videoTime = $dateTime->format('H:i:s');
+            $crimeType = getCrimeType($videoDate, $videoTime);
         } else {
             $videoDate = 'Unknown';
             $videoTime = 'Unknown';
@@ -89,13 +109,12 @@ $videos = generateVideoDataArray($videoFiles);
         </form>
     </div>
 
-
-<div id="video-container" class="video-container"></div>
-<?php
+    <div id="video-container" class="video-container"></div>
+    <?php
     if (empty($videoFiles)) {
         echo '<p id="no-video">No videos available.</p>';
     }
-?>
+    ?>
 </div>
 
 <script>
@@ -132,41 +151,41 @@ $videos = generateVideoDataArray($videoFiles);
     });
 
     function playVideo(videoUrl, card) {
-    const playingVideo = card.querySelector('.video-player');
-    if (playingVideo) {
-        playingVideo.pause();
-        playingVideo.currentTime = 0;
-        hideVideoPlayer(playingVideo, card);
-    }
+        const playingVideo = card.querySelector('.video-player');
+        if (playingVideo) {
+            playingVideo.pause();
+            playingVideo.currentTime = 0;
+            hideVideoPlayer(playingVideo, card);
+        }
 
-    const videoPlayer = document.createElement('video');
-    videoPlayer.src = videoUrl;
-    videoPlayer.controls = true;
-    videoPlayer.className = 'video-player';
+        const videoPlayer = document.createElement('video');
+        videoPlayer.src = videoUrl;
+        videoPlayer.controls = true;
+        videoPlayer.className = 'video-player';
 
-    const exitButton = document.createElement('button');
-    exitButton.innerText = 'Exit';
-    exitButton.className = 'exit-button';
-    exitButton.addEventListener('click', () => hideVideoPlayer(videoPlayer, card));
+        const exitButton = document.createElement('button');
+        exitButton.innerText = 'Exit';
+        exitButton.className = 'exit-button';
+        exitButton.addEventListener('click', () => hideVideoPlayer(videoPlayer, card));
 
-    card.appendChild(videoPlayer);
-    card.appendChild(exitButton);
+        card.appendChild(videoPlayer);
+        card.appendChild(exitButton);
 
-    const playButton = card.querySelector('.play-button');
-    playButton.innerText = 'Exit';
+        const playButton = card.querySelector('.play-button');
+        playButton.innerText = 'Exit';
 
-    videoPlayer.style.display = 'block';
-    exitButton.style.display = 'block';
+        videoPlayer.style.display = 'block';
+        exitButton.style.display = 'block';
     }
 
     function hideVideoPlayer(videoPlayer, card) {
-    videoPlayer.pause();
-    videoPlayer.currentTime = 0;
-    const exitButton = card.querySelector('.exit-button');
-    exitButton.style.display = 'none';
-    videoPlayer.style.display = 'none';
-    const playButton = card.querySelector('.play-button');
-    playButton.innerText = 'Play';
+        videoPlayer.pause();
+        videoPlayer.currentTime = 0;
+        const exitButton = card.querySelector('.exit-button');
+        exitButton.style.display = 'none';
+        videoPlayer.style.display = 'none';
+        const playButton = card.querySelector('.play-button');
+        playButton.innerText = 'Play';
     }
 </script>
 

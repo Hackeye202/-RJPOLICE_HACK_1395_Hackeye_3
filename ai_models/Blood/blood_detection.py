@@ -8,49 +8,35 @@ sys.path.insert(1, 'ai_models/')
 import mysql_crime_insert
 import requests
 
-# Global variables for video saving
 output_directory = 'dashboard/videos/crimes'
 thumbnail_output_directory = 'dashboard/videos/crimes/thumbnails/'
-clip_duration = 10  # seconds
-fps = 8  # frames per second
+clip_duration = 10
+fps = 8
 
-# Create the output directory if it doesn't exist
 os.makedirs(output_directory, exist_ok=True)
 
-# Load the trained model
 model = load_model("ai_models/Blood/blood_detection_model.h5")
 
-# Open a connection to the webcam (0 is usually the default camera)
 cap = cv2.VideoCapture(0)
 
-# Camera information
 camera_info = {
     'camera_no': 1,
     'camera_name': 'Webcam',
-    'camera_loc': 'Hallway'  # Update with the actual location of your camera
+    'camera_loc': 'Hallway'
 }
 
 result_dict = {}
 
-# Variables for video clip and thumbnail creation
 frames_list = []
 start_time = None
 
 while True:
-    # Capture frame-by-frame
     ret, frame = cap.read()
-
-    # Resize the frame to match the input size of the model
     img = cv2.resize(frame, (224, 224))
-
-    # Convert BGR to RGB (OpenCV uses BGR by default)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-
-    # Expand dimensions and normalize the image
     img_array = np.expand_dims(img, axis=0)
     img_array = img_array / 255.0
 
-    # Make predictions
     predictions = model.predict(img_array)
 
     if predictions[0][0] < 0.5:

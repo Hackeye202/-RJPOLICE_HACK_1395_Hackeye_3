@@ -12,26 +12,22 @@ net.setPreferableBackend(cv2.dnn.DNN_BACKEND_DEFAULT)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
 classes = ["Pistol"]
 
-# Global variables for video saving
 output_directory = 'dashboard/videos/crimes'
 thumbnail_output_directory = 'dashboard/videos/crimes/thumbnails/'
-clip_duration = 10  # seconds
-fps = 8  # frames per second
+clip_duration = 10
+fps = 8
 
-# Create the output directory if it doesn't exist
 os.makedirs(output_directory, exist_ok=True)
 
 
-cap = cv2.VideoCapture(0)  # 0 represents the default camera (webcam)
+cap = cv2.VideoCapture(0)
 
-# Camera information
 camera_no = 0
 camera_name = 'webcam'
 camera_loc = 'STREET A'
 type_of_crime = 'Pistol'
 detection_count = 0
 
-# Variables for video clip and thumbnail creation
 frames_list = []
 start_time = None
 
@@ -54,7 +50,7 @@ while True:
             scores = detection[5:]
             class_id = np.argmax(scores)
             confidence = scores[class_id]
-            if confidence > 0.5 and class_id == 0:  # Assuming the class_id for 'Weapon' is 0
+            if confidence > 0.5 and class_id == 0:
                 detection_count += 1
                 center_x = int(detection[0] * width)
                 center_y = int(detection[1] * height)
@@ -81,7 +77,6 @@ while True:
             'type_of_crime': type_of_crime,
             'detection_count': detection_count
         }
-        # Save the video clip
         if len(frames_list) > 0:
             out_filename = os.path.join(output_directory, f"{current_datetime.strftime('%Y-%m-%d_%H-%M-%S')}.mp4")
             out = cv2.VideoWriter(out_filename, cv2.VideoWriter_fourcc(*'avc1'), fps, (img.shape[1], img.shape[0]))
@@ -89,7 +84,6 @@ while True:
                 out.write(saved_frame)
             out.release()
 
-        # Save the thumbnail
         thumbnail_filename = os.path.join(thumbnail_output_directory, f"{current_datetime.strftime('%Y-%m-%d_%H-%M-%S')}-thumbnail.jpg")
         cv2.imwrite(thumbnail_filename, img)
         print(result)
@@ -110,14 +104,11 @@ while True:
             cv2.putText(img, label, (x, y + 30), font, 3, color, 3)
 
     cv2.imshow("Image", img)
-    # Append frame to the list for video clip creation
     frames_list.append(img)
 
-    # Remove frames older than clip_duration seconds
     if len(frames_list) > clip_duration * fps:
         frames_list.pop(0)
 
-    # Update start_time for the first frame
     if start_time is None:
         start_time = datetime.datetime.now()
     

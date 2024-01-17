@@ -4,7 +4,6 @@ import cv2
 from datetime import datetime
 import mysql.connector
 
-# Database Details
 host = "localhost"
 user = "root"
 password = "1234"
